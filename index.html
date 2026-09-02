@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محمد و مرجان | کارت دعوت</title>
+<style>
+*{box-sizing:border-box} body{margin:0;min-height:100vh;background:#f5f3ee;font-family:Tahoma,Arial,sans-serif;color:#333;display:flex;justify-content:center;align-items:center}
+.wrap{width:min(430px,100%);min-height:100vh;padding:18px;display:flex;align-items:center;justify-content:center}
+.stage{width:100%;max-width:390px;min-height:720px;position:relative;perspective:1200px}
+.envelope{position:absolute;inset:0;background:linear-gradient(145deg,#fdfcf8,#d7d8d5);border:1px solid #bfc1bf;border-radius:18px;box-shadow:0 18px 55px #0002;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 1s,opacity .8s;transform-origin:left center;z-index:5;overflow:hidden}
+.envelope:before{content:"";position:absolute;inset:14px;border:1px solid #aeb0ad;border-radius:14px}
+.flap{position:absolute;top:0;left:0;right:0;height:47%;background:linear-gradient(145deg,#ececea,#cfd1cf);clip-path:polygon(0 0,100% 0,50% 100%);border-bottom:1px solid #aaa;filter:drop-shadow(0 5px 4px #0001)}
+.seal{position:absolute;top:48%;left:50%;transform:translate(-50%,-50%);width:86px;height:86px;border-radius:50%;background:#ececea;border:2px solid #a6a8a6;display:grid;place-items:center;font-size:34px;box-shadow:0 5px 18px #0002}
+.envelope .names{position:absolute;bottom:25%;font-family:Georgia,serif;font-size:34px;letter-spacing:1px;color:#747775}
+.envelope .hint{position:absolute;bottom:12%;font-size:14px;color:#7d807d}
+.card{position:absolute;inset:0;background:linear-gradient(180deg,#fffefb,#eef0ed);border:1px solid #c5c7c4;border-radius:18px;padding:32px 25px;box-shadow:0 18px 55px #0002;text-align:center;overflow:auto}
+.card h1{font-family:Georgia,serif;font-size:34px;font-weight:500;margin:8px 0;color:#707370}
+.line{height:1px;background:#bfc1bf;margin:18px 45px}
+.intro{font-size:15px;line-height:2;color:#555}
+.info{margin:24px 0;padding:18px;border:1px solid #c6c9c6;border-radius:14px;background:#ffffffaa}
+.info div{margin:9px 0;font-size:15px}.info strong{color:#666}
+.music{display:inline-flex;align-items:center;gap:8px;border:1px solid #aaa;background:#fff;border-radius:999px;padding:10px 16px;cursor:pointer;color:#666}
+.qr{margin:20px auto 8px;width:150px;height:150px;border:1px dashed #aaa;display:grid;place-items:center;color:#999;font-size:13px;border-radius:10px}
+.footer{margin-top:18px;font-size:13px;color:#777;line-height:1.8}
+.open .envelope{transform:rotateY(-108deg) translateX(-8%);opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage" id="stage">
+    <div class="envelope" id="envelope" aria-label="باز کردن کارت">
+      <div class="flap"></div>
+      <div class="seal">♥</div>
+      <div class="names">محمد &amp; مرجان</div>
+      <div class="hint">روی پاکت کلیک کنید</div>
+    </div>
+
+    <main class="card">
+      <div class="intro">به نام عشق<br>با افتخار از شما دعوت می‌کنیم<br>تا در آغاز فصل تازه زندگی‌مان همراه ما باشید.</div>
+      <div class="line"></div>
+      <h1>محمد &amp; مرجان</h1>
+      <div class="info">
+        <div><strong>تاریخ:</strong> ۳۱ شهریور ۱۴۰۵</div>
+        <div><strong>ساعت:</strong> ۱۹:۰۰</div>
+        <div><strong>مکان:</strong> تالار الماس</div>
+      </div>
+      <button class="music" id="musicBtn">🎵 پخش موسیقی</button>
+      <audio id="music" preload="auto" loop>
+        <source src="music.mp3" type="audio/mpeg">
+      </audio>
+      <a href="https://maps.app.goo.gl/FctR8gqqSiFKY65a6?g_st=ic" target="_blank" rel="noopener" class="qr" style="text-decoration:none;color:#777"><img src="location_qr.png" alt="QR لوکیشن" style="width:100%;height:100%;object-fit:contain;border-radius:10px"></a>
+      <div class="footer">برای مسیریابی، QR کد را اسکن کنید.<br>منتظر دیدار شما هستیم 🤍</div>
+    </main>
+  </div>
+</div>
+<script>
+const stage=document.getElementById('stage'), envelope=document.getElementById('envelope');
+const audio=document.getElementById('music'), btn=document.getElementById('musicBtn');
+function openCard(){
+  stage.classList.add('open');
+  audio.play().then(()=>{btn.textContent='⏸ توقف موسیقی';})
+    .catch(()=>{btn.textContent='🎵 پخش موسیقی';});
+}
+envelope.addEventListener('click', openCard);
+envelope.addEventListener('touchend', function(e){ e.preventDefault(); openCard(); }, {passive:false});
+btn.addEventListener('click', async ()=>{
+  if(audio.paused){await audio.play();btn.textContent='⏸ توقف موسیقی';}
+  else{audio.pause();btn.textContent='🎵 پخش موسیقی';}
+});
+</script>
+</body>
+</html>
